@@ -1,4 +1,7 @@
 telegram:
   bot_id: "BOT_ID_FROM_BOTFATHER"
   chat_id: "CHAT_ID_IN_WHICH_NOTIFICATION_WILL_BE_SENT"
-  timeout_min: 5
+
+scraper:
+  wait_time_min: 5
+  date: "DD.MM.YYYY" # Date before which search for exam
