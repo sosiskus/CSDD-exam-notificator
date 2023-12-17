@@ -18,10 +18,13 @@ import (
 
 type Config struct {
 	Telegram struct {
-		BotID      string `yaml:"bot_id"`
-		ChatID     string `yaml:"chat_id"`
-		TimeoutMin int    `yaml:"timeout_min"`
+		BotID  string `yaml:"bot_id"`
+		ChatID string `yaml:"chat_id"`
 	} `yaml:"telegram"`
+	Scraper struct {
+		WaitTimeMin int    `yaml:"wait_time_min"`
+		Date        string `yaml:"date"`
+	} `yaml:"scraper"`
 }
 
 func send(text string, bot string, chat_id string) {
@@ -102,6 +105,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	untilDay, err := strconv.Atoi(cfg.Scraper.Date[:2])
+	untilMonth, err1 := strconv.Atoi(cfg.Scraper.Date[3:5])
+	untilYear, err2 := strconv.Atoi(cfg.Scraper.Date[6:10])
+	if err != nil || err1 != nil || err2 != nil {
+		log.Fatal(err)
+	}
+
 	for {
 		fmt.Println(time.Now())
 
@@ -115,7 +125,7 @@ func main() {
 		if len(res) <= 0 {
 			fmt.Printf("session die\n")
 			send("Session die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
-			time.Sleep(time.Duration(cfg.Telegram.TimeoutMin) * time.Minute)
+			time.Sleep(time.Duration(cfg.Scraper.WaitTimeMin) * time.Minute)
 			continue
 		}
 
@@ -134,7 +144,7 @@ func main() {
 
 			fmt.Printf("%s [%s,%s]\n", str, []byte(date), last_chs)
 
-			end := time.Date(2024, 1, 2, 0, 0, 0, 0, time.UTC)
+			end := time.Date(untilYear, time.Month(untilMonth), untilDay, 0, 0, 0, 0, time.UTC)
 
 			dateToCheck := time.Date(dateYear, time.Month(dateMonth), dateDay, 0, 0, 0, 0, time.UTC)
 
@@ -142,10 +152,8 @@ func main() {
 				fmt.Printf("found\n")
 				send(str, cfg.Telegram.BotID, cfg.Telegram.ChatID)
 				break
-
 			}
 		}
-
-		time.Sleep(time.Duration(cfg.Telegram.TimeoutMin) * time.Minute)
+		time.Sleep(time.Duration(cfg.Scraper.WaitTimeMin) * time.Minute)
 	}
 }
