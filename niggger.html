@@ -1,0 +1,490 @@
+<!DOCTYPE html><html>
+<head>
+<meta charset="utf-8" />
+<title>E-CSDD pakalpojumi</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, viewport-fit=auto" />
+<meta property="og:image" content="/opengraph-image.png" />
+<meta property="og:title" content="CSDD E-Pakapojumi" />
+<meta property="og:description" content=" e-CSDD Jūs jebkurā laikā un bez maksas varat uzzināt informāciju par transportlīdzekļiem, vadītājiem, sodiem, veikt maksājumus un saņemt CSDD pakalpojumus e-vidē." />
+<meta property="og:image" content="/images/description.jpg" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<!--link rel="apple-touch-icon-precomposed" sizes="152x152" href="./apple-touch-icon-152x152.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="./apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="./apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" href="./apple-touch-icon-60x60.png" /-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500&amp;subset=latin,latin-ext,cyrillic-ext" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+<link href="/css/jquery-ui.min.css?v=1.94" rel="stylesheet" type="text/css" />
+<link href="/css/jquery.timepicker.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="/css/lpaisais.css" rel="stylesheet" /> 
+<link href="/styles/main_v.css?v=2.19" rel="stylesheet" type="text/css" />
+<link href="/styles/default-skin.css?v=2.23" rel="stylesheet" type="text/css" /><link href="/styles/main-mobile.css?v=1.93" rel="stylesheet" type="text/css" />	
+
+<link href="/styles/captcha.css" rel="stylesheet" type="text/css" />
+<link href="/styles/floatbar.css" rel="stylesheet" type="text/css" />
+<link href="/styles/datepicker.css" rel="stylesheet" type="text/css" />
+<link href="/styles/darkbox.css" rel="stylesheet" type="text/css" />
+<link href="/styles/normalize.css" rel="stylesheet" type="text/css" />
+
+
+<script src="/jscripts/jquery-3.6.0.min.js"></script>
+<script src="/jscripts/jquery-ui.min.js?v=2"></script>
+<script src="/jscripts/jquery.timepicker.js"></script>
+
+<link href="/jscripts/select2.min.css" rel="stylesheet" />
+<script src="/jscripts/select2.min.js"></script>
+<script type="text/javascript" src="/jscripts/lpaisais.js?v=5"></script> 
+<script src="/scripts/translate.js?v=3.0"></script>
+
+
+<script>$(document).ready(function() {
+        window.history.pushState(null, "", window.location.href);        
+        window.onpopstate = function() {
+            window.history.pushState(null, "", window.location.href);
+        };
+    });</script>
+<script src="/scripts/main.merge.js?v=3.0"></script>
+<script src="/jscripts/moment.min.js"></script>
+<script src="/jscripts/promise.js"></script>
+</head>
+<body>
+
+
+
+<script>
+	function submitForm() 
+	 { 
+		document.getElementById('uniforma').submit();
+	 }						
+</script>	
+
+	<header id="header" class="header-e-csdd">
+		<div class="header-container">
+			<div class="header-split-left">
+								<a href="https://e.csdd.lv/" tabindex="-1"><img src="/images/svg/logo-csdd.svg" alt="CSDD" /></a>
+				<p>e-CSDD  </p>
+			</div>
+			<div class="header-split-right">
+				
+                <div class="languageswitcherload js-language-switcher">
+                    <a href="javascript:void(0);">LV</a>
+                    <div class="mod-languages">
+                        <ul class="lang-block">
+                            <li dir="ltr">
+                                <a href="?lng=en">EN</a>
+                            </li>
+                            <li dir="ltr">
+                                <a href="?lng=lv">LV</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div><div class="profile-select js-profile-select">
+    <a href="javascript:;">
+        <p class="capitalize">Ņikita</p>
+        <div class="profile-mark _mark-important">
+            <p>�</p>
+        </div>
+    </a>
+    <nav>
+        <header>
+            <h4 class="capitalize">Ņikita Kļepikovs</h4>
+            <small>Privātpersona</small>
+        </header>
+        <ul>
+            <li><a href="/payment/">Maksājumi apstiprināšanai <span class="_indicator"></span></a></li>
+            <li><a href="/payhistory/">Maksājumu vēsture</a></li>
+                            <li><a href="/profile/">Profila labošana</a></li>
+                <li><a href="/?devices=1">Autorizētās ierīces</a></li>
+                        <li><a href="/atgd/">Atgādinājumi</a></li>
+            <li><a href="/pakpiet/">e-Iesniegums</a></li>
+            <li><a href="/pin/">Klientu atbalsts</a></li>
+        </ul>
+        <footer>
+            <a href="/./?userlist=true">
+            <span class="icon-accounts">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 4.8 4.56" style="enable-background:new 0 0 4.8 4.56;" xml:space="preserve">
+            <style type="text/css">
+                    .svg-icon-accounts{fill-rule:evenodd;clip-rule:evenodd;}
+            </style>
+            <g><g>
+            <path class="svg-icon-accounts" d="M3.84,2.64c0.173,0,0.326,0.058,0.466,0.138C4.309,2.731,4.32,2.687,4.32,2.64 c0-0.711-0.391-1.324-0.965-1.656C3.351,1.156,3.292,1.309,3.208,1.448C3.589,1.707,3.84,2.144,3.84,2.64z M0.96,3.12 c-0.265,0-0.48,0.215-0.48,0.48c0,0.265,0.215,0.48,0.48,0.48c0.265,0,0.48-0.215,0.48-0.48C1.44,3.335,1.225,3.12,0.96,3.12z M0.96,2.64c0-0.496,0.251-0.933,0.632-1.192C1.508,1.31,1.449,1.156,1.445,0.984C0.871,1.316,0.48,1.929,0.48,2.64 c0,0.047,0.01,0.091,0.014,0.138C0.634,2.698,0.787,2.64,0.96,2.64z M2.954,3.969C2.784,4.04,2.597,4.08,2.4,4.08 S2.016,4.04,1.846,3.969C1.781,4.123,1.669,4.246,1.538,4.347C1.798,4.479,2.088,4.56,2.4,4.56s0.602-0.081,0.862-0.213 C3.131,4.246,3.019,4.123,2.954,3.969z M3.84,3.12c-0.265,0-0.48,0.215-0.48,0.48c0,0.265,0.215,0.48,0.48,0.48 S4.32,3.865,4.32,3.6C4.32,3.335,4.105,3.12,3.84,3.12z M2.4,1.44c0.265,0,0.48-0.215,0.48-0.48c0-0.265-0.215-0.48-0.48-0.48 c-0.265,0-0.48,0.215-0.48,0.48C1.92,1.225,2.135,1.44,2.4,1.44z"></path>
+            </g></g>
+            </svg></span> Mainīt kontu</a> 
+            <a href="/login/" id="logout"><span class="icon-exit">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 4.32 3.84" style="enable-background:new 0 0 4.32 3.84;" xml:space="preserve"><path class="svg-icon-exit" d="M2.4,3.84V3.36H0.48V0.48H2.4V0L0,0v3.84H2.4z M3.36,0.96v0.72H1.44v0.48h1.92v0.72l0.72-0.72l0.24-0.24L4.08,1.68 L3.36,0.96z"></path></svg>
+            </span> Iziet</a>
+        </footer>
+    </nav>
+</div>			</div>
+		</div>
+		<div class="mobile-search">
+			<div class="header-search">
+				<form class="form-input-group" id="mobile-search" action="/tadati/" method="post">
+					<label for="search-input">Reģistrācijas vai VIN numurs:</label>
+					<input id="search-input" name="rn" type="search" class="js-form-input-focus" maxlength="20"/>
+					<input class="button-header-search" type="submit" />
+					<a class="header-search-icon js_mobile-search" href="javascript:;" tabindex="-1">
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 4 4.004" style="enable-background:new 0 0 4 4.004;" xml:space="preserve"><style type="text/css">
+								.svg-icon-search{fill-rule:evenodd;clip-rule:evenodd;}
+							</style><g><g><path class="svg-icon-search" d="M3.898,3.389L3.041,2.506C3.176,2.261,3.259,1.982,3.259,1.68C3.259,0.752,2.53,0,1.63,0S0,0.752,0,1.68 c0,0.928,0.73,1.68,1.63,1.68c0.354,0,0.678-0.119,0.946-0.316l0.829,0.854c0.136,0.141,0.357,0.141,0.494,0 C4.034,3.758,4.034,3.53,3.898,3.389z M0.698,1.68c0-0.53,0.417-0.96,0.931-0.96s0.931,0.43,0.931,0.96 c0,0.53-0.417,0.96-0.931,0.96S0.698,2.21,0.698,1.68z"></path></g></g></svg>
+					</a>
+				</form>
+			</div>
+		</div>    
+	</header>
+	<div class="linePreloader"></div>
+
+<div class="message-error" style="display: none;">
+    <div class="container">
+        <p id="syserror"></p>
+        <a href="javascript:;" class="message-close">
+            <span>Aizvērt</span>
+            <div>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 14 14" style="enable-background:new 0 0 14 14;" xml:space="preserve"><style type="text/css">
+        .svg-icon-close{fill-rule:evenodd;clip-rule:evenodd;}
+    </style><g><g><polygon class="svg-icon-close" points="14,12.524 8.452,6.976 13.772,1.656 12.344,0.227 7.024,5.548 1.476,0 0,1.476 5.548,7.024 0.228,12.343 1.656,13.772 6.976,8.451 12.524,14"></polygon></g></g></svg></div>
+
+            </div>
+        </a>
+</div>
+<script src="/scripts/examp.js?v=1"></script>
+<main id="examp" class="site-container">
+<section id="top-bar">
+<div id="global-breadcrumb">
+	    <ol>
+        <li><a href="/" class="pathway">Sākums</a></li>
+        <li><a href="/?menu=6" class="pathway">CSDD eksāmeni un kursi</a></li>        <li><a href="/examp/" class="pathway">Pieteikšanās vadīšanas eksāmenam</a></li>	
+    </ol>
+</div>
+</section>
+<div class="tabs-wrapper">
+    <div class="tabs-group">
+        <input id="tab1" type="radio" name="tabs-1" checked="" />
+        <label for="tab1"><i class="fa fa-info-circle"></i> <span>Informācija</span></label>
+
+        <input id="tab2" type="radio" name="tabs-1" />
+        <label for="tab2"><i class="fa fa-exclamation-triangle"></i> <span>Noteikumi</span></label>
+
+        <input id="tab3" type="radio" name="tabs-1" _disabled="" />
+        <label for="tab3" class="_disabled"><i class="fa fa-file-text"></i> <span>Pakalpojuma apraksts</span></label>
+
+        <input id="tab4" type="radio" name="tabs-1" />
+        <label for="tab4"><i class="fa fa-bullhorn"></i> <span>Jautājumiem/Atsauksmēm</span></label>
+
+        <section>
+            <h3>Iespēja pieteikties vadīšanas eksāmeniem</h3><p>
+				<div class="table-wrapper"><table class="table-list" border="0" id="eptabula"><tr><td width="20%">
+				CSDD klientu apkalpošanas centrs:</br>
+				Rīgas KAC
+				</td>
+				<td valign="center" align="right" >
+				<form method="POST">				
+				<input type="submit" class="button" name="setnodala" id="setnodala" value="Mainīt"></form></td>
+				</tr><tr><td width="20%">
+				Iemesls:</br>
+				Kvalifikācijas iegūšana
+				</td>
+				<td valign="center" align="right" >
+				<form method="POST">
+				<input type="hidden" class="button" name="nodala" id="nodala" value="1">				
+				<input type="submit" class="button" name="setiemesls" id="setiemesls" value="Mainīt"></form></td>
+				</tr><tr><td width="20%">
+				Eksāmena veids:</br>
+				B
+				</td>
+				<td valign="center" align="right" >
+				<form method="POST">				
+				<input type="submit" class="button" name="setveids" id="setveids" value="Mainīt"></form></td>
+				</tr></table></div>
+				<form name="uniforma" id="uniforma" method="POST">
+				<div class="table-wrapper"><table class="table-list"><tr><td class="value">Eksāmena datums:</br><select id="datums" name="datums" class="form-control"><option value="-1">- Izvēle no saraksta -</option><option value="404883" >19.12.2023 Brīvās vietas: 0</option>
+<option value="404945" >20.12.2023 Brīvās vietas: 0</option>
+<option value="405065" >21.12.2023 Brīvās vietas: 0</option>
+<option value="405101" >22.12.2023 Brīvās vietas: 1</option>
+<option value="405187" >27.12.2023 Brīvās vietas: 0</option>
+<option value="405201" >28.12.2023 Brīvās vietas: 0</option>
+<option value="405215" >29.12.2023 Brīvās vietas: 0</option>
+<option value="405287" >02.01.2024 Brīvās vietas: 0</option>
+<option value="405305" >03.01.2024 Brīvās vietas: 0</option>
+<option value="405394" >04.01.2024 Brīvās vietas: 0</option>
+<option value="405505" >05.01.2024 Brīvās vietas: 0</option>
+<option value="405527" >08.01.2024 Brīvās vietas: 0</option>
+<option value="405538" >09.01.2024 Brīvās vietas: 0</option>
+<option value="405705" >10.01.2024 Brīvās vietas: 19</option>
+<option value="405727" >11.01.2024 Brīvās vietas: 25</option>
+<option value="405786" >12.01.2024 Brīvās vietas: 47</option>
+</select><label class="graytxt"></label>
+				<input type="hidden" id="did" name="did" value="3" class="field">
+				<input type="hidden" id="datums_txt" name="datums_txt" value="" class="field">
+				</td></tr></table></div>
+				   <fieldset class="inline">
+						<input class="button" id="find" type="submit" value="Turpināt" />
+					</fieldset>						
+				</form>        </section>
+
+        <section>
+            <h4>Pakalpojuma lietošanas noteikumi</h4>
+            <p><p style="text-align: justify;">
+	1. Aizpildot eksāmena pieteikumu, sekojiet, vai tiek izvēlēta tā CSDD klientu apkalpošanas centrs, kurā vēlaties kārtot eksāmenu. Papildus tam, sekojiet, vai tiek izvēlēts pareizais eksāmena pieteikuma iemesls un kategorija.
+</p>
+<p style="text-align: justify;">
+	2. Vadīšanas eksāmenam iespējams pieteikties tikai pēc tam, kad sekmīgi nokārtots attiecīgās kategorijas teorētiskais eksāmens un autoskola CSDD reģistrā ir ievietojusi informāciju par braukšanas apmācības beigšanu, izņemot gadījumus, kad kvalifikācijas iegūšanai nepieciešams kārtot tikai vadīšanas eksāmenu.
+</p>
+<p style="text-align: justify;">
+	3. Pakalpojuma apmaksu varat veikt uzreiz pēc eksāmena pieteikuma reģistrācijas (izvēloties izvēlni “Apmaksāt”) vai arī vēlāk e.csdd sadaļā <a href="https://epak.csdd.lv/payment/">“Maksājumi apstiprināšanai”</a>, vai arī klātienē CSDD klientu apkalpošanas centrā.
+</p>
+<p style="text-align: justify;">
+	4. Ja apmaksa par eksāmenu nav veikta, tad Jums jāierodas CSDD vismaz 15 minūtes agrāk pirms eksāmena un jāveic apmaksa CSDD kasē. Ja apmaksa nav veikta līdz eksāmenam, Jūs netiekat pielaists eksāmena kārtošanai, bet jebkurā gadījumā pēc tam tiks pieprasīta apmaksa par rezervēto eksāmenu.
+</p>
+<p style="text-align: justify;">
+	5. Gadījumos, ja CSDD nav reģistrēti kādi no nepieciešamajiem dokumentiem, tad, līdzi ņemot norādītos trūkstošos dokumentus, Jums jāierodas 30 minūtes pirms eksāmena un jāuzrāda šie dokumenti.
+</p>
+<p style="text-align: justify;">
+	6. Lai veiktu izmaiņas pieteikumā pēc tā apstiprināšanas, tas ir jāanulē un jānoformē jauns pieteikums, ko drīkst veikt vienu reizi divu stundu laikā.
+</p>
+<p style="text-align: justify;">
+	7. Ja nevariet ierasties uz eksāmenu, paziņojiet par to ne vēlāk kā iepriekšējā dienā. To iespējams izdarīt, anulējot pieteikumu internetā, kā arī darba dienās, personīgi ierodoties CSDD vai piezvanot pa tālruni.
+</p>
+<p style="text-align: justify;">
+	8.Par neierašanos uz eksāmenu bez iepriekšēja brīdinājuma, veiktais maksājums tiks zaudēts vai arī tiks pieprasīta apmaksa par to, ja apmaksa iepriekš nav bijusi veikta.
+</p></p>
+        </section>
+
+        <section>
+            <h4>Apraksts par pakalpojumu</h4>
+            <div class="form-group">
+                <form>
+                <h5>Lejupielādēt apraksta dokumentu PDF</h5>
+               <ul>
+               
+    			<li><a href="../Documents/PieteikVadEks.pdf" rel="external" target="_blank">Pakalpojuma apraksts PDF</a> </li>
+    		                </ul>					
+                </form>           
+            </div>
+        </section>
+
+        <section>
+            
+                                    <div id="ajaxServiceForm" style="display: block;"></div>
+            <p>
+            <form method="POST" id="serviceForm" action="">
+                <div class="column-two-thirds">
+                <div class="form-group">
+                <p>
+                Ja saņemot pakalpojumu radušies sarežģījumi un nepieciešama tehniska palīdzība, lūdzu, norādiet zemāk minēto informāciju un CSDD speciālisti Jums sniegs atbalstu, nosūtot ziņu uz Jūsu norādīto e-pastu (ja būs atzīmēts “- vēlos saņemt atbildi uz norādīto e-pastu”). Tāpat gaidīsim atsauksmes un ieteikumus u.tml., lai pilnveidotu pakalpojumus un to sniegšanas procesus.                </p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Vārds, uzvārds:</label>
+                    <input class="form-control" id="person" name="person" type="text" value="ŅIKITA KĻEPIKOVS" readonly="readonly" />
+                </div>                
+                <div class="form-group">
+                    <label class="form-label">E-pasta adrese:                    <span class="form-hint"><input class="form-control" type="checkbox" id="stem" name="stem" checked="" value="2"/> - vēlos saņemt atbildi uz norādīto e-pastu.</span>
+                    </label>
+                    <input class="form-control" id="email" name="email" type="text" value="nikita.klepikovs.d@gmail.com" readonly="readonly" />
+                </div>                
+                <div class="form-group">
+                    <label class="form-label">Tēma:</label>
+                    <input class="form-control" id="topic" name="topic" type="text" value="Pieteikšanās vadīšanas eksāmenam - Informācija" readonly="readonly" />
+                </div>
+                </div> 
+                <div class="column-full">               
+                <div class="form-group" id="txtArea">
+                    <span id="latin_warning" class="error-message" style="display: none;">Lūdzu, norādiet tekstu latīņu burtiem</span>
+                    <label class="form-label" for="userMessage">Situācijas apraksts/Atsauksme:                    <span class="form-hint">Piesakot tehnisku sarežģījumu, kļūdas paziņojumu u.tml., lūdzam sniegt iespējami precīzu situācijas aprakstu (piem., kļūdas paziņojuma tekstu) un informāciju par saņemto pakalpojumu (piem., transportlīdzekļa reģistrācijas numuru).</span>
+                    </label>
+                    
+                    <textarea class="form-control" name="userMessage" id="userMessage" placeholder="Lūdzu, norādiet tekstu latīņu burtiem" autofocus=""></textarea>                
+                </div>
+                </div>
+                <fieldset class="inline">
+                <input class="button" id="serviceData" type="button" value="Nosūtīt" onclick="ServiceFormSubmitNew()" />
+                <!--a class="link" href="/examp/">Atgriezties</a-->
+                </fieldset>
+            </form>
+            </p>        </section>		
+		
+    </div>
+</div>
+
+</main>
+	<footer id="footer" class="footer-e-csdd">
+	<div class="footer-container">
+	<!--div class="footer-content-links grid-row">
+	<div class="column-desktop-third">
+	<ul>
+	<li><a href="javascript:;">Tehniskā apskate</a></li>
+	<li><a href="javascript:;">Transportlīdzekļu reģistrācija</a></li>
+	<li><a href="javascript:;">Maksājumi</a></li>
+	</ul>
+	</div>
+	<div class="column-desktop-third">
+	<ul>
+	<li><a href="javascript:;">Vadītāja apliecības un dokumenti</a></li>
+	<li><a href="javascript:;">Sodi un pārkāpumi</a></li>
+	</ul>
+	</div>
+	<div class="column-desktop-third">
+	<ul>
+	<li><a href="javascript:;">CSDD eksāmeni un kursi</a></li>
+	<li><a href="javascript:;">Kravas automobiļu sertifikācija</a></li>
+	</ul>
+	</div>
+	</div>
+	<hr-->
+	<div class="footer-top-row grid-row">
+	<div class="column-quarter">
+		<h4>Tehniskais atbalsts</h4>
+		<div class="contact-info">
+		<div class="grid-row">
+		<div class="column-half">
+		<small>Darbadienās</small><h5>8.30 – 17.00</h5></div></div>
+		<hr>
+		<div class="grid-row">
+		<div class="column-full">
+		<div class="info-link">
+		<span class="icon-mail">
+		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 4.32 3.36" style="enable-background:new 0 0 4.32 3.36;" xml:space="preserve">
+		<style type="text/css">
+				.svg-icon-mail{fill-rule:evenodd;clip-rule:evenodd;}
+		</style><g><g><path class="svg-icon-mail" d="M3.84,1.2V0.72l-1.68,1.2l-1.68-1.2V1.2l1.68,1.2L3.84,1.2z M0,0v3.36h4.32V0H0z M3.843,2.88H0.477v-2.4 h3.366V2.88z"></path></g></g></svg></span> 
+		<a href="mailto:palidziba@csdd.gov.lv" class="link-plain">palidziba@csdd.gov.lv</a>
+		</div>
+		
+		</div></div></div>
+	</div>
+	<div class="column-quarter"><h4>Par e-CSDD maksājumiem</h4>
+    	<div class="contact-info">
+    	<div class="grid-row">
+    	<div class="column-half">
+    	<small>Darbadienās</small><h5>8.30 – 17.00</h5></div>
+    	</div>
+    	<hr><div class="grid-row">
+    	<div class="column-full">
+    	<div class="info-link">
+    	<span class="icon-mail">
+    	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 4.32 3.36" style="enable-background:new 0 0 4.32 3.36;" xml:space="preserve"><style type="text/css">
+    			.svg-icon-mail{fill-rule:evenodd;clip-rule:evenodd;}
+    		</style><g><g><path class="svg-icon-mail" d="M3.84,1.2V0.72l-1.68,1.2l-1.68-1.2V1.2l1.68,1.2L3.84,1.2z M0,0v3.36h4.32V0H0z M3.843,2.88H0.477v-2.4 h3.366V2.88z"></path></g></g></svg></span> 
+    		<a href="mailto:emaksajumi@csdd.gov.lv" class="link-plain">emaksajumi@csdd.gov.lv</a>
+    	</div>
+    		</div>
+    		</div></div>
+    </div>
+	
+	<div class="column-quarter"><h4>Kontakti un darba laiki</h4>
+    	<div class="contact-info">
+        	<div class="grid-row">
+            	<div class="grid-priority-container" style="padding: 0 12px;">
+            	<small><a href="https://www.csdd.lv/par-csdd/kontakti-un-darba-laiki/" target="_blank" class="link">CSDD KAC darba laiki</a></small><h5>Kontakti saziņai</h5>
+                </div>
+        	</div>
+        	<hr/>
+            <div class="grid-row">
+        	<div class="column-full">
+			
+		<div class="info-link">
+            
+            <span class="spotlight-cotacts-icon" style="display: inline-block;height: 18px;margin-right: 8px;position: relative;top: 2px;width: 12px;font-size: 1.125rem;">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2.88 4.32" style="enable-background:new 0 0 2.88 4.32;" xml:space="preserve">
+            <style type="text/css">
+                .svg-icon-phone{fill-rule:evenodd;clip-rule:evenodd;}
+            </style>
+               <g>
+                   <g>
+                       <path class="svg-icon-phone" d="M0,0v4.32h2.88V0H0z M2.4,3.36H1.68v0.48H1.2V3.36H0.48V0.72H2.4V3.36z M1.2,3.12v0.24h0.48V3.12H1.2z"></path>
+                   </g>
+               </g>
+            </svg>
+            </span>
+            <a href="tel:+37167025777" class="">+ 371 <span>670 257 77</span></a>
+        </div>
+		   		    </div>
+    		</div>
+        </div>
+    </div>
+	
+		<div class="column-quarter"><h4>e-CSDD pieejami arī</h4>
+			<div class="apps-info">
+				<div>
+					<a href="https://itunes.apple.com/lv/app/csdd/id661663816"><img src=./../images/e-csdd/button-app_store-lv.png width="142" height="50"></a> 
+					<a href="https://play.google.com/store/apps/details?id=lv.csdd.ecsdd"><img src=./../images/e-csdd/button-google_play-lv.png width="142" height="50"></a>
+				</div>
+			</div>
+		</div>
+		</div><hr><div class="footer-bottom-row grid-row"><div class="grid-desktop-priority-container">
+		<div class="footer-copyright column-desktop-third column-footer-group">
+			<img src="./../images/svg/logo-csdd-footer.svg" width="170" height="43" alt="CSDD"> 
+			<small>© CSDD 2023</small>
+			<br/><img width="170" src="../images/BMC_ISO-27001.svg" alt="ISO">
+		</div><div class="footer-page-links column-desktop-third"><ul><!--li><a class="link-alt" href="javascript:;">BUJ</a></li><li><a class="link-alt" href="contacts.html">Kontakti</a></li---><li><a class="link-alt about-ecsdd-pak" href="javascript:;">Lietošanas noteikumi</a></li><li><a class="link-alt private-ecsdd-pak" href="javascript:;">Privātuma politika</a></li>
+			<li>
+			<small class="xsmall">
+			e-pakalpojumu darbība tiek atbalstīta, izmantojot šādas interneta pārlūkprogrammu versijas:  
+			Microsoft Internet Explorer 11
+			Microsoft Edge
+			Google Chrome 46
+			Mozilla Firefox 42
+			Apple Safari 7 MAC OSS
+			</small>	
+			</li>	
+		</ul>
+		</div>
+	<div class="footer-payments column-desktop-third"><ul>
+	<li><a class="link-payment-visa" href="javascript:;">
+	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 14.161 4.458" style="enable-background:new 0 0 14.161 4.458;" xml:space="preserve">
+	<g><g>
+	<path d="M4.983,4.378h1.146l0.717-4.296H5.7L4.983,4.378z M9.164,1.75C8.763,1.545,8.518,1.409,8.52,1.202 c0-0.184,0.208-0.38,0.657-0.38c0.013,0,0.025,0,0.038,0c0.356,0,0.616,0.083,0.82,0.169l0.103,0.051l0.156-0.857 C10.066,0.096,9.71,0,9.266,0C8.133,0,7.335,0.499,7.328,1.357c-0.006,0.634,0.57,0.988,1.005,1.2 c0.446,0.216,0.596,0.354,0.594,0.548C8.924,3.401,8.57,3.536,8.241,3.536c-0.459,0-0.703-0.067-1.079-0.232l-0.148-0.07 L6.853,4.223c0.268,0.123,0.763,0.23,1.277,0.236c1.205,0,1.988-0.592,1.997-1.509C10.131,2.447,9.826,2.065,9.164,1.75z M13.233,0.081h-0.886c-0.274,0-0.48,0.079-0.6,0.366l-1.703,3.947h1.204c0,0,0.197-0.544,0.241-0.664 c0.131,0,1.301,0.002,1.468,0.002c0.034,0.155,0.14,0.662,0.14,0.662h1.064L13.233,0.081z M11.82,2.827 c0.095-0.254,0.457-1.234,0.457-1.234c0,0,0,0,0,0c-0.002,0,0.096-0.26,0.152-0.422l0.077,0.381c0,0,0.22,1.054,0.266,1.275 L11.82,2.827z M4.027,0.08L2.905,2.991l-0.12-0.612c0,0,0,0,0,0L2.383,0.45c-0.069-0.28-0.271-0.363-0.52-0.373H0.015L0,0.169 c0.417,0.106,0.792,0.255,1.125,0.44c0.061,0.04,0.086,0.084,0.106,0.146l0.992,3.634l1.213-0.001L5.242,0.08H4.027z">
+	</path></g></g></svg></a>
+	</li>
+	<!--li><a class="link-payment-maestro" href="javascript:;">
+	<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 9.36 5.76" style="enable-background:new 0 0 9.36 5.76;" xml:space="preserve"><style type="text/css">
+			.svg-payment-maestro{fill-rule:evenodd;clip-rule:evenodd;}
+		</style><g><g><path class="svg-payment-maestro" d="M6.56,0C5.837,0,5.177,0.282,4.68,0.745L4.963,1.05c0.023,0.028,0.041,0.06,0.062,0.089 C5.002,1.108,4.972,1.081,4.947,1.05h-0.55C4.484,0.942,4.579,0.84,4.68,0.745C4.183,0.282,3.524,0,2.8,0C1.254,0,0,1.289,0,2.88 c0,1.591,1.254,2.88,2.8,2.88c0.724,0,1.383-0.282,1.88-0.745C4.75,4.95,4.808,4.874,4.868,4.8H4.393 c-0.076-0.099-0.146-0.204-0.21-0.314h0.975L4.948,4.8H4.879C4.815,4.874,4.752,4.948,4.68,5.015 C5.177,5.478,5.837,5.76,6.56,5.76c1.547,0,2.8-1.289,2.8-2.88C9.36,1.289,8.107,0,6.56,0z M4.184,1.355h0.977 C5.137,1.317,5.12,1.275,5.095,1.238c0.027,0.039,0.057,0.076,0.082,0.117L5.338,1.66c0.003,0.007,0.005,0.014,0.008,0.021 C5.342,1.674,5.337,1.668,5.334,1.66H4.023C4.071,1.555,4.125,1.453,4.184,1.355z M2.102,3.597l0.207-1.122L1.832,3.597H1.514 L1.456,2.481L1.249,3.597H0.932l0.27-1.445h0.544l0.029,0.889l0.383-0.889h0.567L2.451,3.597H2.102z M3.687,2.966L3.614,3.388 L3.602,3.464l-0.009,0.06L3.587,3.565L3.584,3.597h-0.29l0.007-0.123C3.212,3.572,3.095,3.61,2.935,3.61 c-0.189,0-0.318-0.125-0.318-0.317c0-0.289,0.225-0.458,0.612-0.458c0.04,0,0.09,0.003,0.142,0.009 c0.011-0.039,0.014-0.056,0.014-0.077c0-0.079-0.061-0.108-0.224-0.108c-0.1,0-0.212,0.013-0.29,0.033L2.823,2.705L2.792,2.713 L2.84,2.446C3.014,2.4,3.129,2.39,3.257,2.39c0.299,0,0.458,0.113,0.458,0.341C3.715,2.79,3.71,2.834,3.687,2.966z M4.423,3.35 c0.125,0,0.237-0.023,0.362-0.075L4.727,3.572C4.608,3.604,4.492,3.62,4.37,3.62c-0.39,0-0.593-0.183-0.593-0.532 c0-0.408,0.258-0.708,0.609-0.708c0.287,0,0.47,0.168,0.47,0.432c0,0.088-0.013,0.173-0.043,0.293H4.121 C4.118,3.123,4.117,3.131,4.117,3.142C4.117,3.28,4.221,3.35,4.423,3.35z M5.316,4.173H5.299C5.26,4.252,5.222,4.33,5.176,4.405 H5.161c0.046-0.076,0.09-0.153,0.132-0.232H4.024C3.98,4.071,3.941,3.966,3.908,3.859h1.525L5.316,4.173z M5.456,3.795H5.44 c0.022-0.066,0.047-0.13,0.064-0.199C5.488,3.662,5.477,3.731,5.456,3.795z M5.754,2.682c-0.062-0.008-0.118-0.01-0.175-0.012 C5.584,2.74,5.601,2.808,5.601,2.88c0-0.072-0.017-0.14-0.022-0.211C5.553,2.668,5.522,2.664,5.5,2.664 c-0.114,0-0.173,0.033-0.173,0.097c0,0.056,0.017,0.069,0.165,0.129C5.669,2.961,5.741,3.057,5.741,3.22 c0,0.271-0.172,0.396-0.544,0.396c-0.046,0-0.111-0.003-0.195-0.01C4.962,3.603,4.932,3.6,4.911,3.596L4.846,3.584L4.831,3.581 l0.048-0.274C4.992,3.34,5.09,3.354,5.195,3.354c0.139,0,0.202-0.033,0.202-0.107c0-0.054-0.022-0.071-0.165-0.131 C5.046,3.038,4.964,2.935,4.964,2.785c-0.001-0.219,0.135-0.394,0.53-0.394c0.015,0,0.038,0.002,0.056,0.003 C5.543,2.353,5.545,2.31,5.537,2.27H3.823c0.022-0.104,0.049-0.206,0.081-0.305H5.44c-0.026-0.08-0.045-0.164-0.078-0.241 C5.396,1.803,5.43,1.883,5.456,1.965L5.538,2.27C5.546,2.31,5.544,2.353,5.55,2.393c0.08,0.003,0.179,0.01,0.254,0.021 L5.754,2.682z M6.298,3.323c0.04,0,0.07-0.004,0.094-0.011L6.346,3.568c-0.095,0.027-0.17,0.039-0.25,0.039 c-0.178,0-0.276-0.077-0.276-0.246c0-0.033,0.004-0.069,0.01-0.106l0.021-0.116l0.016-0.094l0.161-0.892h0.347l-0.05,0.243h0.178 L6.455,2.698H6.277L6.185,3.194C6.181,3.216,6.179,3.232,6.179,3.243C6.179,3.304,6.215,3.323,6.298,3.323z M7.152,2.744 c-0.167,0-0.221,0.127-0.346,0.853H6.458l0.213-1.203h0.316L6.955,2.59c0.107-0.14,0.189-0.193,0.304-0.193 c0.013,0,0.024,0.001,0.035,0.003c0.002,0,0.012,0.003,0.03,0.007c0.003,0.001,0.01,0.001,0.039,0.013L7.237,2.755L7.196,2.747 C7.18,2.745,7.165,2.744,7.152,2.744z M8.447,3.059C8.395,3.454,8.127,3.614,7.77,3.614c-0.394,0-0.554-0.231-0.554-0.532 c0-0.421,0.27-0.699,0.686-0.699c0.362,0,0.554,0.227,0.554,0.528C8.456,2.985,8.456,2.99,8.447,3.059z M4.544,2.804 c0-0.096-0.061-0.153-0.165-0.153c-0.111,0-0.19,0.076-0.222,0.213l0.384,0.001C4.543,2.84,4.544,2.82,4.544,2.804z M2.954,3.244 c0,0.074,0.049,0.121,0.125,0.121c0.142,0,0.244-0.121,0.25-0.297C3.293,3.064,3.277,3.063,3.251,3.063 C3.054,3.063,2.954,3.124,2.954,3.244z M7.896,2.665c-0.178,0-0.288,0.216-0.288,0.407c0,0.161,0.076,0.269,0.2,0.267 c0.076,0,0.237-0.106,0.268-0.291c0.008-0.043,0.011-0.09,0.011-0.142C8.088,2.783,8.039,2.665,7.896,2.665z"></path></g></g></svg></a>
+		</li-->
+		<li><a class="link-payment-master_card" href="javascript:;">
+		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 9.36 5.76" style="enable-background:new 0 0 9.36 5.76;" xml:space="preserve"><style type="text/css">
+			.svg-payment-master_card{fill-rule:evenodd;clip-rule:evenodd;}
+		</style><g><g><path class="svg-payment-master_card" d="M2.052,3.29c-0.01,0.097,0.045,0.163,0.141,0.163c0.148,0,0.213-0.114,0.233-0.303l0.006-0.06H2.41 C2.198,3.09,2.068,3.135,2.052,3.29z M6.56,0C5.842,0,5.187,0.279,4.692,0.736l0.266,0.3H4.402c0.082-0.107,0.171-0.207,0.266-0.3 C4.173,0.279,3.519,0,2.8,0C1.254,0,0,1.289,0,2.88c0,1.591,1.254,2.88,2.8,2.88c0.724,0,1.383-0.282,1.88-0.745 C4.75,4.95,4.808,4.874,4.868,4.8H4.402c-0.076-0.099-0.146-0.204-0.21-0.314h0.975L4.958,4.8H4.879 C4.815,4.874,4.752,4.948,4.68,5.015C5.177,5.478,5.836,5.76,6.56,5.76c1.547,0,2.8-1.289,2.8-2.88C9.36,1.289,8.107,0,6.56,0z M4.193,1.35h0.975l0.159,0.314H4.034C4.081,1.555,4.134,1.451,4.193,1.35z M1.452,3.594L1.574,2.41H1.57L1.099,3.598H0.917 L0.706,2.41H0.702L0.58,3.602L0.348,3.61l0.146-1.454h0.381l0.178,1.089h0.004l0.403-1.089H1.83L1.684,3.594H1.452z M2.677,2.958 L2.629,3.422c-0.008,0.076-0.007,0.139-0.005,0.18H2.401C2.393,3.561,2.396,3.517,2.401,3.465H2.398 C2.327,3.552,2.241,3.603,2.094,3.603c-0.16,0-0.296-0.091-0.276-0.289c0.029-0.289,0.264-0.361,0.578-0.361h0.05l0.004-0.039 C2.46,2.81,2.42,2.713,2.278,2.713c-0.124,0-0.24,0.062-0.292,0.103L1.993,2.61c0.073-0.033,0.176-0.078,0.333-0.078 C2.646,2.531,2.704,2.692,2.677,2.958z M3.121,2.964l0.114,0.08c0.119,0.084,0.177,0.144,0.164,0.268 c-0.02,0.196-0.192,0.291-0.415,0.291c-0.128,0-0.23-0.031-0.28-0.052l0.034-0.189c0.038,0.016,0.135,0.07,0.25,0.07 c0.09,0,0.162-0.023,0.17-0.105c0.004-0.041-0.012-0.08-0.096-0.134L2.966,3.131C2.869,3.067,2.762,2.999,2.779,2.832 c0.015-0.146,0.168-0.301,0.386-0.301c0.132,0,0.23,0.035,0.253,0.043L3.384,2.772C3.325,2.748,3.261,2.725,3.172,2.725 c-0.1,0-0.146,0.039-0.152,0.103C3.013,2.886,3.054,2.917,3.121,2.964z M3.574,3.317l0.059-0.582H3.47l0.019-0.188h0.164 l0.022-0.219l0.166-0.051c0.021-0.102,0.046-0.203,0.077-0.301h1.525l0.08,0.314H3.926L3.9,2.548h0.206L4.087,2.735H3.881 L3.825,3.286C3.814,3.399,3.85,3.432,3.922,3.432c0.044,0,0.077-0.012,0.096-0.023L4,3.591C3.96,3.61,3.904,3.626,3.831,3.626 C3.647,3.626,3.552,3.54,3.574,3.317z M4.546,3.438c0.152,0,0.228-0.047,0.278-0.082L4.816,3.558 C4.762,3.581,4.649,3.626,4.501,3.626c-0.332,0-0.45-0.245-0.421-0.532c0.032-0.318,0.219-0.563,0.48-0.563 c0.222,0,0.398,0.134,0.354,0.567L4.909,3.148H4.314C4.296,3.329,4.355,3.438,4.546,3.438z M5.326,4.173H4.034 C3.99,4.071,3.951,3.966,3.917,3.859h1.525L5.326,4.173z M5.456,3.795l0.003-0.06c0.014-0.047,0.033-0.091,0.045-0.138 C5.488,3.662,5.477,3.731,5.456,3.795z M5.601,2.88c0-0.055-0.014-0.107-0.017-0.161L5.578,2.777 c-0.021-0.006-0.043-0.01-0.069-0.01c-0.102,0-0.22,0.064-0.24,0.262L5.21,3.61H4.962l0.09-0.887 c0.007-0.066,0.011-0.128,0.01-0.175h0.224c-0.004,0.064-0.005,0.13-0.012,0.194h0.004c0.038-0.083,0.129-0.21,0.283-0.21 c0.001,0,0.002,0,0.003,0c-0.01-0.086-0.01-0.174-0.027-0.258l0-0.004c0.018,0.084,0.017,0.175,0.027,0.262 C5.579,2.532,5.59,2.536,5.602,2.537L5.584,2.718C5.587,2.773,5.601,2.824,5.601,2.88z M6.482,3.564 C6.428,3.593,6.302,3.615,6.176,3.615c-0.423,0-0.608-0.305-0.566-0.725c0.043-0.421,0.293-0.74,0.708-0.74 c0.142,0,0.253,0.039,0.303,0.06L6.584,2.447C6.535,2.42,6.458,2.368,6.328,2.368c-0.212,0-0.408,0.148-0.446,0.522 C5.844,3.263,6.01,3.412,6.222,3.412c0.124,0,0.209-0.031,0.271-0.074L6.482,3.564z M7.402,2.958L7.355,3.422 C7.347,3.498,7.348,3.561,7.35,3.602H7.126C7.119,3.561,7.122,3.517,7.127,3.465H7.123C7.052,3.552,6.967,3.611,6.819,3.611 c-0.16,0-0.296-0.099-0.276-0.296c0.029-0.289,0.264-0.361,0.578-0.361h0.05l0.004-0.039C7.186,2.81,7.146,2.713,7.004,2.713 c-0.124,0-0.24,0.062-0.292,0.103L6.719,2.61c0.073-0.033,0.176-0.078,0.333-0.078C7.372,2.531,7.429,2.692,7.402,2.958z M7.78,3.028L7.721,3.602H7.474l0.09-0.879c0.007-0.066,0.011-0.128,0.01-0.175h0.224c-0.005,0.064-0.005,0.13-0.012,0.194H7.79 c0.038-0.083,0.129-0.21,0.283-0.21c0.016,0,0.027,0.004,0.041,0.006L8.09,2.777c-0.021-0.006-0.043-0.01-0.069-0.01 C7.919,2.766,7.801,2.83,7.78,3.028z M8.901,3.602H8.67C8.669,3.571,8.671,3.517,8.678,3.445H8.672 C8.623,3.535,8.54,3.611,8.38,3.611c-0.256,0-0.336-0.237-0.306-0.531c0.035-0.346,0.19-0.549,0.411-0.549 c0.148,0,0.221,0.087,0.248,0.169h0.004l0.065-0.675h0.248L8.912,3.428C8.904,3.505,8.899,3.563,8.901,3.602z M8.544,2.719 c-0.138,0-0.2,0.138-0.221,0.351c-0.025,0.245,0,0.369,0.144,0.369c0.146,0,0.212-0.163,0.233-0.363 C8.721,2.869,8.68,2.719,8.544,2.719z M4.543,2.704c-0.13,0-0.198,0.142-0.212,0.283h0.355C4.705,2.799,4.655,2.704,4.543,2.704z M6.778,3.29c-0.01,0.097,0.045,0.163,0.141,0.163c0.148,0,0.213-0.114,0.232-0.303l0.006-0.06H7.135 C6.924,3.09,6.793,3.135,6.778,3.29z"></path></g></g></svg></a></li>
+		<!---li><a class="link-payment-american_express" href="javascript:;">
+		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 7.92 6.96" style="enable-background:new 0 0 7.92 6.96;" xml:space="preserve"><style type="text/css">
+			.svg-payment-american_express{fill-rule:evenodd;clip-rule:evenodd;}
+		</style><path class="svg-payment-american_express" d="M7.92,4.574c0,0.194-0.127,0.287-0.351,0.287H7.142V4.666h0.427c0.041,0,0.072-0.007,0.086-0.02 c0.014-0.014,0.027-0.034,0.027-0.058c0-0.027-0.014-0.055-0.027-0.065c-0.014-0.014-0.038-0.02-0.079-0.02 C7.372,4.495,7.115,4.509,7.115,4.219c0-0.13,0.086-0.273,0.317-0.273h0.44V4.14H7.465c-0.041,0-0.069,0-0.086,0.014 C7.359,4.174,7.345,4.195,7.345,4.226c0,0.034,0.021,0.055,0.045,0.065c0.028,0.007,0.055,0.014,0.086,0.014h0.12 c0.124,0,0.203,0.027,0.258,0.072C7.892,4.424,7.92,4.482,7.92,4.574L7.92,4.574L7.92,4.574z M6.99,4.376 C6.935,4.331,6.856,4.304,6.732,4.304H6.612c-0.031,0-0.058-0.007-0.086-0.014C6.502,4.28,6.481,4.26,6.481,4.226 c0-0.031,0.007-0.051,0.034-0.072C6.533,4.14,6.56,4.14,6.602,4.14h0.406V3.946H6.567c-0.237,0-0.317,0.143-0.317,0.273 c0,0.29,0.258,0.276,0.461,0.283c0.041,0,0.065,0.007,0.079,0.02c0.014,0.01,0.028,0.037,0.028,0.065 c0,0.024-0.014,0.044-0.028,0.058c-0.021,0.014-0.045,0.02-0.086,0.02H6.278V4.86h0.427c0.224,0,0.351-0.092,0.351-0.287 C7.056,4.482,7.028,4.424,6.99,4.376L6.99,4.376L6.99,4.376z M6.144,4.673h-0.52V4.488h0.509V4.304H5.624V4.137h0.52V3.946H5.407 V4.86h0.737V4.673L6.144,4.673z M5.17,3.99C5.097,3.953,5.011,3.946,4.898,3.946H4.392V4.86h0.224V4.526h0.237 c0.079,0,0.124,0.007,0.158,0.041C5.049,4.611,5.049,4.69,5.049,4.751V4.86h0.22V4.683c0-0.082-0.007-0.123-0.035-0.167 C5.214,4.488,5.177,4.454,5.122,4.437C5.183,4.417,5.28,4.338,5.28,4.195C5.28,4.089,5.242,4.031,5.17,3.99L5.17,3.99L5.17,3.99z M3.917,3.946H3.211l-0.286,0.3l-0.268-0.3H1.766V4.86h0.878l0.282-0.3l0.272,0.3h0.427V4.553h0.279 c0.189,0,0.382-0.051,0.382-0.307C4.285,3.997,4.089,3.946,3.917,3.946L3.917,3.946L3.917,3.946z M4.991,4.325 C4.956,4.338,4.925,4.338,4.884,4.338L4.616,4.345V4.137h0.268c0.041,0,0.079,0,0.107,0.017c0.028,0.014,0.045,0.041,0.045,0.078 C5.036,4.273,5.018,4.304,4.991,4.325L4.991,4.325L4.991,4.325z M3.917,4.369H3.624V4.137h0.293c0.079,0,0.131,0.031,0.131,0.109 C4.048,4.325,3.996,4.369,3.917,4.369L3.917,4.369L3.917,4.369z M3.067,4.403l0.341-0.358v0.737L3.067,4.403L3.067,4.403z M2.53,4.673H1.982V4.488h0.489V4.304H1.982V4.137h0.554l0.244,0.266L2.53,4.673L2.53,4.673z M7.307,3.25H6.99L6.574,2.563V3.25 H6.127L6.041,3.048H5.579L5.493,3.25H5.235c-0.107,0-0.244-0.024-0.323-0.102C4.839,3.069,4.798,2.963,4.798,2.799 c0.003-0.137,0.021-0.259,0.121-0.358c0.065-0.072,0.186-0.106,0.337-0.106h0.21v0.198h-0.21c-0.079,0-0.127,0.014-0.172,0.051 C5.042,2.625,5.025,2.697,5.025,2.792c0,0.099,0.017,0.171,0.058,0.218c0.031,0.031,0.093,0.044,0.151,0.044h0.1l0.317-0.72h0.327 L6.35,3.198V2.335h0.341L7.08,2.97V2.335h0.227V3.25L7.307,3.25z M4.688,2.335H4.464V3.25h0.224V2.335L4.688,2.335z M4.22,2.376 C4.148,2.335,4.068,2.335,3.955,2.335H3.449V3.25h0.217V2.918h0.238c0.079,0,0.131,0.007,0.165,0.037 c0.038,0.048,0.031,0.126,0.031,0.178V3.25h0.227V3.069c0-0.079-0.007-0.119-0.041-0.164C4.264,2.877,4.227,2.847,4.178,2.826 C4.24,2.799,4.337,2.727,4.337,2.584C4.337,2.478,4.292,2.42,4.22,2.376L4.22,2.376L4.22,2.376z M3.29,3.062H2.774V2.877h0.51V2.69 h-0.51V2.526H3.29V2.335H2.55V3.25h0.74V3.062L3.29,3.062z M2.385,2.335H2.024L1.752,2.956L1.463,2.335H1.108v0.864L0.73,2.335 H0.403L0.007,3.25h0.237l0.083-0.201h0.465L0.874,3.25h0.451V2.533L1.649,3.25h0.189l0.324-0.717V3.25h0.224V2.335L2.385,2.335z M5.961,2.853L5.81,2.492L5.658,2.853H5.961L5.961,2.853z M4.048,2.707c-0.034,0.02-0.065,0.02-0.11,0.02H3.666V2.526h0.272 c0.038,0,0.083,0,0.11,0.014c0.028,0.017,0.041,0.044,0.041,0.085C4.089,2.662,4.075,2.697,4.048,2.707L4.048,2.707L4.048,2.707z M0.406,2.853l0.155-0.362l0.151,0.362H0.406L0.406,2.853z M7.915,0H0v2.761l0.268-0.608h0.575l0.079,0.15v-0.15h0.671l0.151,0.324 l0.148-0.324h2.141c0.1,0,0.186,0.017,0.251,0.072V2.154h0.589v0.072C4.97,2.171,5.097,2.154,5.242,2.154h0.85l0.079,0.15v-0.15 h0.627l0.093,0.15v-0.15h0.613v1.28h-0.62L6.763,3.239v0.195H5.992L5.906,3.226H5.717L5.631,3.434H5.228 c-0.158,0-0.275-0.038-0.354-0.079v0.079H3.917V3.14c0-0.041-0.007-0.048-0.035-0.048H3.851v0.341H2.003V3.27L1.938,3.434H1.549 L1.483,3.277v0.157H0.736L0.657,3.226H0.468L0.382,3.434H0V6.96h7.915V4.987c-0.083,0.038-0.253,0.058-0.37,0.058H6.97V4.966 C6.904,5.017,6.784,5.045,6.674,5.045H4.867V4.751c0-0.041-0.007-0.041-0.041-0.041H4.795v0.335H4.199V4.697 c-0.1,0.048-0.21,0.048-0.31,0.048H3.824v0.3H3.098L2.926,4.847L2.736,5.045H1.569V3.761h1.187l0.169,0.198l0.186-0.198H3.91 c0.093,0,0.244,0.014,0.31,0.079V3.761h0.713c0.072,0,0.21,0.014,0.303,0.079V3.761h1.074V3.84c0.062-0.051,0.172-0.079,0.272-0.079 H7.18V3.84c0.065-0.044,0.158-0.079,0.279-0.079h0.456V0L7.915,0z">
+		</path></svg>
+		</a></li--->
+		</ul></div></div></div></div>
+	</footer>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<!--script async src="https://www.googletagmanager.com/gtag/js?id=UA-46073562-6"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-46073562-6');
+		</script-->
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q09H2GL8G8"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-Q09H2GL8G8');
+		</script>
+		<script>this.focus();</script>
+<!-- Hotjar Tracking Code for https://e.csdd.lv -->
+	<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3007240,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+</body>
+</html>
