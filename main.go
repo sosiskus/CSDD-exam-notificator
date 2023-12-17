@@ -12,7 +12,17 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
+
+type Config struct {
+	Telegram struct {
+		BotID      string `yaml:"bot_id"`
+		ChatID     string `yaml:"chat_id"`
+		TimeoutMin int    `yaml:"timeout_min"`
+	} `yaml:"telegram"`
+}
 
 func send(text string, bot string, chat_id string) {
 
@@ -78,50 +88,64 @@ func main() {
 
 	fmt.Printf("CSDD parse data app. v0.3\n")
 
-	for {
+	// Parse configs
+	f, err := os.Open("config.yml")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
 
+	var cfg Config
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(&cfg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for {
 		fmt.Println(time.Now())
+
 		plainHtml := scrape()
-		// plainHtml, _ := ioutil.ReadFile("niggger.html")
+		// n, _ := ioutil.ReadFile("niggger.html")
+		// plainHtml := string(n)
 
 		var re = regexp.MustCompile(`(?mU)<option\s*value="[0-9]+"\s*>(.+)</option>`)
+		res := re.FindAllStringSubmatch(plainHtml, -1)
 
-		str := string(plainHtml)
-		res := re.FindAllStringSubmatch(str, -1)
+		if len(res) <= 0 {
+			fmt.Printf("session die\n")
+			send("Session die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
+			time.Sleep(time.Duration(cfg.Telegram.TimeoutMin) * time.Minute)
+			continue
+		}
 
 		for i := range res {
 			str := res[i][1]
 			last_chs := strings.TrimSpace(str[len(str)-2:])
-			date := strings.TrimSpace(str[:5])
+			date := strings.TrimSpace(str[:10])
 
-			dateDay, err := strconv.Atoi(date[:2])
+			dateDay, err1 := strconv.Atoi(date[:2])
 			dateMonth, err := strconv.Atoi(date[3:5])
+			dateYear, err2 := strconv.Atoi(date[6:10])
 
-			if err != nil {
+			if err != nil || err1 != nil || err2 != nil {
 				continue
 			}
 
-			// 05.09 less than
-			if dateMonth == 12 && dateDay <= 31 && last_chs != "0" {
-				fmt.Printf("found\n")
-				send(str, "bot6621115120:AAGbttFrh_3ZjTl7YkUFpHaFZVj0kZnIXMc", "773077583")
-				break
-			}
-			if dateMonth == 1 && dateDay < 8 && last_chs != "0" {
-				fmt.Printf("found\n")
-				send(str, "bot6621115120:AAGbttFrh_3ZjTl7YkUFpHaFZVj0kZnIXMc", "773077583")
-				break
-			}
-
 			fmt.Printf("%s [%s,%s]\n", str, []byte(date), last_chs)
+
+			end := time.Date(2024, 1, 2, 0, 0, 0, 0, time.UTC)
+
+			dateToCheck := time.Date(dateYear, time.Month(dateMonth), dateDay, 0, 0, 0, 0, time.UTC)
+
+			if dateToCheck.Before(end) && last_chs != "0" {
+				fmt.Printf("found\n")
+				send(str, cfg.Telegram.BotID, cfg.Telegram.ChatID)
+				break
+
+			}
 		}
 
-		if len(res) <= 0 {
-			fmt.Printf("session die\n")
-			send(str, "bot6621115120:AAGbttFrh_3ZjTl7YkUFpHaFZVj0kZnIXMc", "773077583")
-			os.Exit(1)
-		}
-
-		time.Sleep(5 * time.Minute)
+		time.Sleep(time.Duration(cfg.Telegram.TimeoutMin) * time.Minute)
 	}
 }
