@@ -7,63 +7,12 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"net/smtp"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
 	"time"
 )
-
-func send_data(str string, subject string) {
-
-	// url := "https://hooks.slack.com/services/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"
-	// fmt.Println("URL:>", url)
-
-	// var jsonStr = []byte(`{"text":"` + str + `"}`)
-	// req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
-	// //    req.Header.Set("X-Custom-Header", "myvalue")
-	// req.Header.Set("Content-Type", "application/json")
-
-	// client := &http.Client{}
-	// resp, err := client.Do(req)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer resp.Body.Close()
-
-	// fmt.Println("response Status:", resp.Status)
-	// fmt.Println("response Headers:", resp.Header)
-	// body, _ := ioutil.ReadAll(resp.Body)
-	// fmt.Println("response Body:", string(body))
-
-	// Sender data.
-	from := "whitedragon5634@gmail.com"
-	password := "qoqn ymay cmkl fvxs"
-
-	// Receiver email address.
-	to := []string{
-		"nikita.klepikovs.d@gmail.com",
-	}
-
-	// smtp server configuration.
-	smtpHost := "smtp.gmail.com"
-	smtpPort := "587"
-
-	// Message.
-	message := []byte(fmt.Sprintf("Subject: %s\r\n\r\n%s", subject, str))
-
-	// Authentication.
-	auth := smtp.PlainAuth("", from, password, smtpHost)
-
-	// Sending email.
-	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, to, message)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println("Email Sent Successfully!")
-}
 
 func send(text string, bot string, chat_id string) {
 
@@ -94,6 +43,7 @@ func scrape() string {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
 	req.Header.Set("Accept-Language", "en-US,en;q=0.9,lv;q=0.8,ru;q=0.7")
 	req.Header.Set("Cache-Control", "max-age=0")
@@ -111,6 +61,7 @@ func scrape() string {
 	req.Header.Set("sec-ch-ua", `"Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"`)
 	req.Header.Set("sec-ch-ua-mobile", "?1")
 	req.Header.Set("sec-ch-ua-platform", `"Android"`)
+
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
@@ -124,6 +75,7 @@ func scrape() string {
 }
 
 func main() {
+
 	fmt.Printf("CSDD parse data app. v0.3\n")
 
 	for {
