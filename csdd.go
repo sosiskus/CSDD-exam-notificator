@@ -19,6 +19,9 @@ import (
 
 var bot *tgbotapi.BotAPI
 var globalStatus [][]string
+var priorityChatID string = ""
+
+var cookie string = ""
 
 type Config struct {
 	Telegram struct {
@@ -29,6 +32,13 @@ type Config struct {
 		WaitTimeMin int    `yaml:"wait_time_min"`
 		Date        string `yaml:"date"`
 	} `yaml:"scraper"`
+	Admin struct {
+		Password string `yaml:"password"`
+	} `yaml:"admin"`
+}
+
+func remove(slice []string, s int) []string {
+	return append(slice[:s], slice[s+1:]...)
 }
 
 func send(text string, bot string, chat_id []string) {
@@ -38,6 +48,46 @@ func send(text string, bot string, chat_id []string) {
 	client := &http.Client{}
 
 	for i := range chat_id {
+
+		if priorityChatID != "" && chat_id[i] == priorityChatID {
+			values := map[string]string{"text": text, "chat_id": chat_id[i]}
+			json_paramaters, _ := json.Marshal(values)
+
+			req, _ := http.NewRequest("POST", request_url, bytes.NewBuffer(json_paramaters))
+			req.Header.Set("Content-Type", "application/json")
+
+			res, err := client.Do(req)
+			if err != nil {
+				fmt.Println(err)
+			} else {
+				fmt.Println(res.Status)
+				defer res.Body.Close()
+			}
+
+			chat_id = remove(chat_id, i)
+
+			break
+		}
+
+	}
+
+	go sendOther(text, bot, chat_id)
+
+}
+
+func sendOther(text string, bot string, chat_id []string) {
+	time.Sleep(3 * time.Minute)
+
+	fmt.Println("OTHERS")
+
+	request_url := "https://api.telegram.org/bot" + bot + "/sendMessage"
+
+	client := &http.Client{}
+
+	for i := range chat_id {
+
+		fmt.Println("sennding message to " + chat_id[i])
+
 		values := map[string]string{"text": text, "chat_id": chat_id[i]}
 		json_paramaters, _ := json.Marshal(values)
 
@@ -67,7 +117,14 @@ func scrape() string {
 	req.Header.Set("Cache-Control", "max-age=0")
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Cookie", "_ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=1bi0ngsmd5r21o76185gvstqnk; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImUzMjZkZjBjLThhM2EtNDIwOS04NTNlLWI5YjI0NjQzMDc2NiIsImMiOjE3MDMwODUxMDIxMTksInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=13f3d17b2928f90408fe2c6abb6eb890; SimpleSAMLAuthToken=_e312727e3d4ae7a836d06ed14d000c3f7770574bf7; SERVERID=s8; _ga_Q09H2GL8G8=GS1.1.1703085034.16.1.1703085189.0.0.0")
+
+	if cookie != "" {
+		req.Header.Set("Cookie", cookie)
+		cookie = ""
+	} else {
+		req.Header.Set("Cookie", "_ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=1bi0ngsmd5r21o76185gvstqnk; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImUzMjZkZjBjLThhM2EtNDIwOS04NTNlLWI5YjI0NjQzMDc2NiIsImMiOjE3MDMwODUxMDIxMTksInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=13f3d17b2928f90408fe2c6abb6eb890; SimpleSAMLAuthToken=_e312727e3d4ae7a836d06ed14d000c3f7770574bf7; SERVERID=s8; _ga_Q09H2GL8G8=GS1.1.1703085034.16.1.1703085189.0.0.0")
+	}
+
 	req.Header.Set("Origin", "https://e.csdd.lv")
 	req.Header.Set("Referer", "https://e.csdd.lv/examp/")
 	req.Header.Set("Sec-Fetch-Dest", "document")
@@ -92,7 +149,7 @@ func scrape() string {
 	return string(bodyText)
 }
 
-func telegramBotUpdater(api string) {
+func telegramBotUpdater(api string, adminPassword string) {
 	bot, err := tgbotapi.NewBotAPI(api)
 	if err != nil {
 		log.Panic(err)
@@ -127,7 +184,35 @@ func telegramBotUpdater(api string) {
 			for i := range globalStatus {
 				total += globalStatus[i][1] + "\n"
 			}
-			msg.Text = total
+			if len(total) == 0 {
+				msg.Text = "Not entries yet"
+			} else {
+				msg.Text = total
+			}
+
+		case "priority":
+			msg.Text = "Incorrect password"
+			res := strings.Split(update.Message.Text, " ")
+			if len(res) > 1 {
+				if res[1] == adminPassword {
+					priorityChatID = strconv.Itoa(int(update.Message.Chat.ID))
+					msg.Text = "priority set to" + priorityChatID
+				}
+			}
+
+		case "curl":
+			findIn := update.Message.Text
+			n := strings.Index(findIn, "Cookie: ")
+
+			for i := n; ; i++ {
+				if string(findIn[i]) == "'" {
+					break
+				}
+				cookie += string(findIn[i])
+			}
+			cookie = strings.ReplaceAll(cookie, "Cookie: ", "")
+			msg.Text = cookie
+
 		default:
 			msg.Text = "I don't know that command"
 		}
@@ -156,7 +241,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	go telegramBotUpdater(cfg.Telegram.BotID)
+	go telegramBotUpdater(cfg.Telegram.BotID, cfg.Admin.Password)
 
 	untilDay, err := strconv.Atoi(cfg.Scraper.Date[:2])
 	untilMonth, err1 := strconv.Atoi(cfg.Scraper.Date[3:5])
@@ -164,6 +249,10 @@ func main() {
 	if err != nil || err1 != nil || err2 != nil {
 		log.Fatal(err)
 	}
+
+	var m int
+
+	fmt.Scan(&m)
 
 	for {
 		fmt.Println(time.Now())
@@ -177,7 +266,7 @@ func main() {
 
 		if len(res) <= 0 {
 			fmt.Printf("session die\n")
-			send("Session die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
+			go send("Session die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
 			time.Sleep(time.Duration(cfg.Scraper.WaitTimeMin) * time.Minute)
 			continue
 		}
@@ -206,7 +295,7 @@ func main() {
 
 			if dateToCheck.Before(end) && last_chs != "0" {
 				fmt.Printf("found\n")
-				send(str, cfg.Telegram.BotID, cfg.Telegram.ChatID)
+				go send(str, cfg.Telegram.BotID, cfg.Telegram.ChatID)
 				break
 			}
 		}

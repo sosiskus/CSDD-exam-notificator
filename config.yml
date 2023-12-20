@@ -1,7 +1,14 @@
 telegram:
-  bot_id: "BOT_ID_FROM_BOTFATHER"
-  chat_id: "CHAT_ID_IN_WHICH_NOTIFICATION_WILL_BE_SENT"
+  bot_id: "6621115120:AAGbttFrh_3ZjTl7YkUFpHaFZVj0kZnIXMc"
+  chat_id: 
+    - "773077583"
+    - "1892705786"
+    - "713533237"
+    - "796698341"
 
 scraper:
   wait_time_min: 5
-  date: "DD.MM.YYYY" # Date before which search for exam
+  date: "02.01.2024" # Date before which search for exam
+
+admin:
+  password: "test"
