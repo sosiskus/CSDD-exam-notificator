@@ -13,13 +13,17 @@ import (
 	"strings"
 	"time"
 
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"gopkg.in/yaml.v2"
 )
 
+var bot *tgbotapi.BotAPI
+var globalStatus [][]string
+
 type Config struct {
 	Telegram struct {
-		BotID  string `yaml:"bot_id"`
-		ChatID string `yaml:"chat_id"`
+		BotID  string   `yaml:"bot_id"`
+		ChatID []string `yaml:"chat_id"`
 	} `yaml:"telegram"`
 	Scraper struct {
 		WaitTimeMin int    `yaml:"wait_time_min"`
@@ -27,25 +31,26 @@ type Config struct {
 	} `yaml:"scraper"`
 }
 
-func send(text string, bot string, chat_id string) {
+func send(text string, bot string, chat_id []string) {
 
-	request_url := "https://api.telegram.org/" + bot + "/sendMessage"
+	request_url := "https://api.telegram.org/bot" + bot + "/sendMessage"
 
 	client := &http.Client{}
 
-	values := map[string]string{"text": text, "chat_id": chat_id}
-	json_paramaters, _ := json.Marshal(values)
+	for i := range chat_id {
+		values := map[string]string{"text": text, "chat_id": chat_id[i]}
+		json_paramaters, _ := json.Marshal(values)
 
-	req, _ := http.NewRequest("POST", request_url, bytes.NewBuffer(json_paramaters))
-	req.Header.Set("Content-Type", "application/json")
+		req, _ := http.NewRequest("POST", request_url, bytes.NewBuffer(json_paramaters))
+		req.Header.Set("Content-Type", "application/json")
 
-	res, err := client.Do(req)
-
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		fmt.Println(res.Status)
-		defer res.Body.Close()
+		res, err := client.Do(req)
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println(res.Status)
+			defer res.Body.Close()
+		}
 	}
 }
 
@@ -58,11 +63,11 @@ func scrape() string {
 	}
 
 	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-	req.Header.Set("Accept-Language", "en-US,en;q=0.9")
+	req.Header.Set("Accept-Language", "en-US,en;q=0.9,lv;q=0.8,ru;q=0.7")
 	req.Header.Set("Cache-Control", "max-age=0")
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Cookie", "PHPSESSID=gsl7rrh7suuqt35e3c3ne408ip; eSign=7cf6bd2046f334665e572e9504bfe40c; SERVERID=s6; _hjFirstSeen=1; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6IjUzYTAyZGMwLTk3MDAtNGJjZS05YmU2LTUyZjUwYTcwZjVkZSIsImMiOjE3MDI4NDU5MTU0MzgsInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=837545cf14ad6ad527dee4b0b26fab1c; SimpleSAMLAuthToken=_06d3a64f432545c8e5517dc278a9f2ce73eadfb396; _ga=GA1.1.2074492875.1702845949; _hjSessionUser_3007240=eyJpZCI6IjU0ODhmZTJlLTliMDYtNWMxMC1iNzY1LWUzODZmZWE1ZTNhZCIsImNyZWF0ZWQiOjE3MDI4NDU5MTU0MzYsImV4aXN0aW5nIjp0cnVlfQ==; _ga_Q09H2GL8G8=GS1.1.1702845949.1.1.1702845992.0.0.0; _hjMinimizedPolls=852170")
+	req.Header.Set("Cookie", "_ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=1bi0ngsmd5r21o76185gvstqnk; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImUzMjZkZjBjLThhM2EtNDIwOS04NTNlLWI5YjI0NjQzMDc2NiIsImMiOjE3MDMwODUxMDIxMTksInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=13f3d17b2928f90408fe2c6abb6eb890; SimpleSAMLAuthToken=_e312727e3d4ae7a836d06ed14d000c3f7770574bf7; SERVERID=s8; _ga_Q09H2GL8G8=GS1.1.1703085034.16.1.1703085189.0.0.0")
 	req.Header.Set("Origin", "https://e.csdd.lv")
 	req.Header.Set("Referer", "https://e.csdd.lv/examp/")
 	req.Header.Set("Sec-Fetch-Dest", "document")
@@ -87,6 +92,52 @@ func scrape() string {
 	return string(bodyText)
 }
 
+func telegramBotUpdater(api string) {
+	bot, err := tgbotapi.NewBotAPI(api)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	bot.Debug = true
+
+	log.Printf("Authorized on account %s", bot.Self.UserName)
+
+	u := tgbotapi.NewUpdate(0)
+	u.Timeout = 60
+
+	updates := bot.GetUpdatesChan(u)
+
+	for update := range updates {
+		if update.Message == nil { // ignore any non-Message updates
+			continue
+		}
+
+		if !update.Message.IsCommand() { // ignore any non-command Messages
+			continue
+		}
+
+		// Create a new MessageConfig. We don't have text yet,
+		// so we leave it empty.
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
+
+		// Extract the command from the Message.
+		switch update.Message.Command() {
+		case "status":
+			var total string
+			for i := range globalStatus {
+				total += globalStatus[i][1] + "\n"
+			}
+			msg.Text = total
+		default:
+			msg.Text = "I don't know that command"
+		}
+
+		if _, err := bot.Send(msg); err != nil {
+			log.Panic(err)
+		}
+	}
+}
+
 func main() {
 
 	fmt.Printf("CSDD parse data app. v0.3\n")
@@ -104,6 +155,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	go telegramBotUpdater(cfg.Telegram.BotID)
 
 	untilDay, err := strconv.Atoi(cfg.Scraper.Date[:2])
 	untilMonth, err1 := strconv.Atoi(cfg.Scraper.Date[3:5])
@@ -128,6 +181,9 @@ func main() {
 			time.Sleep(time.Duration(cfg.Scraper.WaitTimeMin) * time.Minute)
 			continue
 		}
+
+		res[len(res)-1][1] = time.Now().String()
+		globalStatus = res
 
 		for i := range res {
 			str := res[i][1]
