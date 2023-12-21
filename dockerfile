@@ -6,7 +6,7 @@ WORKDIR /app
 # Download dependencies
 COPY ./go.mod ./
 COPY ./go.sum ./
-# RUN go mod download
+RUN go mod download
 COPY *.go ./
 
 RUN go build ./csdd.go
