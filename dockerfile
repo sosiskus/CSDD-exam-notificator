@@ -1,5 +1,5 @@
 ## Build
-FROM golang:1.23-buster AS build
+FROM golang:1.22-rc-bookworm AS build
 
 WORKDIR /app
 
