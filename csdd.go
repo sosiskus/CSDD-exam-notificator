@@ -67,11 +67,27 @@ func send(text string, bot string, chat_id []string) {
 			chat_id = remove(chat_id, i)
 
 			break
+		} else if priorityChatID == "" {
+			values := map[string]string{"text": text, "chat_id": chat_id[i]}
+			json_paramaters, _ := json.Marshal(values)
+
+			req, _ := http.NewRequest("POST", request_url, bytes.NewBuffer(json_paramaters))
+			req.Header.Set("Content-Type", "application/json")
+
+			res, err := client.Do(req)
+			if err != nil {
+				fmt.Println(err)
+			} else {
+				fmt.Println(res.Status)
+				defer res.Body.Close()
+			}
 		}
 
 	}
 
-	go sendOther(text, bot, chat_id)
+	if priorityChatID != "" {
+		go sendOther(text, bot, chat_id)
+	}
 
 }
 
@@ -109,7 +125,8 @@ func scrape() string {
 	var data = strings.NewReader(`datums=-1&did=3&datums_txt=`)
 	req, err := http.NewRequest("POST", "https://e.csdd.lv/examp/", data)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return ""
 	}
 
 	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
@@ -139,12 +156,14 @@ func scrape() string {
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return ""
 	}
 	defer resp.Body.Close()
 	bodyText, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return ""
 	}
 	return string(bodyText)
 }
@@ -185,7 +204,7 @@ func telegramBotUpdater(api string, adminPassword string) {
 				total += globalStatus[i][1] + "\n"
 			}
 			if len(total) == 0 {
-				msg.Text = "Not entries yet"
+				msg.Text = "No entries yet"
 			} else {
 				msg.Text = total
 			}
@@ -197,6 +216,15 @@ func telegramBotUpdater(api string, adminPassword string) {
 				if res[1] == adminPassword {
 					priorityChatID = strconv.Itoa(int(update.Message.Chat.ID))
 					msg.Text = "priority set to" + priorityChatID
+				}
+			}
+
+		case "rpriority":
+			msg.Text = "Incorrect password"
+			res := strings.Split(update.Message.Text, " ")
+			if len(res) > 1 {
+				if res[1] == adminPassword {
+					msg.Text = "priority removed"
 				}
 			}
 
@@ -250,9 +278,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	var m int
-
-	fmt.Scan(&m)
+	defer send("Program die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
 
 	for {
 		fmt.Println(time.Now())
