@@ -265,7 +265,7 @@ func restart() {
 
 func main() {
 
-	fmt.Printf("CSDD parse data app. v0.3\n")
+	fmt.Printf("CSDD parse data app. v1.1\n")
 
 	// Parse configs
 	f, err := os.Open("config/config.yml")
