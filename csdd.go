@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"regexp"
 	"strconv"
 	"strings"
@@ -251,6 +252,17 @@ func telegramBotUpdater(api string, adminPassword string) {
 	}
 }
 
+func restart() {
+	cmd := exec.Command(os.Args[0])
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err == nil {
+		os.Exit(0)
+	}
+}
+
 func main() {
 
 	fmt.Printf("CSDD parse data app. v0.3\n")
@@ -280,6 +292,7 @@ func main() {
 
 	defer send("Program die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
 
+	var found bool = false
 	for {
 		fmt.Println(time.Now())
 
@@ -292,6 +305,12 @@ func main() {
 
 		if len(res) <= 0 {
 			fmt.Printf("session die\n")
+
+			fmt.Println(plainHtml)
+			if found {
+				restart()
+			}
+
 			go send("Session die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
 			time.Sleep(time.Duration(cfg.Scraper.WaitTimeMin) * time.Minute)
 			continue
@@ -321,8 +340,11 @@ func main() {
 
 			if dateToCheck.Before(end) && last_chs != "0" {
 				fmt.Printf("found\n")
+				found = true
 				go send(str, cfg.Telegram.BotID, cfg.Telegram.ChatID)
 				break
+			} else {
+				found = false
 			}
 		}
 		time.Sleep(time.Duration(cfg.Scraper.WaitTimeMin) * time.Minute)
