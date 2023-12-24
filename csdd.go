@@ -268,7 +268,7 @@ func main() {
 	fmt.Printf("CSDD parse data app. v0.3\n")
 
 	// Parse configs
-	f, err := os.Open("config.yml")
+	f, err := os.Open("config/config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
