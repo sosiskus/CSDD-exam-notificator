@@ -135,14 +135,7 @@ func scrape() string {
 	req.Header.Set("Cache-Control", "max-age=0")
 	req.Header.Set("Connection", "keep-alive")
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
-	if cookie != "" {
-		req.Header.Set("Cookie", cookie)
-		cookie = ""
-	} else {
-		req.Header.Set("Cookie", "_ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=1bi0ngsmd5r21o76185gvstqnk; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImUzMjZkZjBjLThhM2EtNDIwOS04NTNlLWI5YjI0NjQzMDc2NiIsImMiOjE3MDMwODUxMDIxMTksInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=13f3d17b2928f90408fe2c6abb6eb890; SimpleSAMLAuthToken=_e312727e3d4ae7a836d06ed14d000c3f7770574bf7; SERVERID=s8; _ga_Q09H2GL8G8=GS1.1.1703085034.16.1.1703085189.0.0.0")
-	}
-
+	req.Header.Set("Cookie", "_ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=2adi4h37ocbe4i9sm4a397tq25; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImNmNWZiMDAzLWUxOWItNDVkYS04YjcwLTI2ZDgxNTAwNTc2NSIsImMiOjE3MDM3NjI0NzEzMTMsInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=3de3b99052a47d556c8ebef1e7511c9b; SERVERID=s6; SimpleSAMLAuthToken=_3815688ec46904625c9c496b9564b28719b7971c8e; _ga_Q09H2GL8G8=GS1.1.1703762470.32.1.1703763266.0.0.0")
 	req.Header.Set("Origin", "https://e.csdd.lv")
 	req.Header.Set("Referer", "https://e.csdd.lv/examp/")
 	req.Header.Set("Sec-Fetch-Dest", "document")
