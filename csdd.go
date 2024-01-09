@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -22,7 +21,26 @@ var bot *tgbotapi.BotAPI
 var globalStatus [][]string
 var priorityChatID string = ""
 
-var cookie string = ""
+var curl string = `curl 'https://e.csdd.lv/examp/' \
+-H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+-H 'Accept-Language: en-US,en;q=0.9,lv;q=0.8,ru;q=0.7' \
+-H 'Cache-Control: max-age=0' \
+-H 'Connection: keep-alive' \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+-H 'Cookie: _ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=2adi4h37ocbe4i9sm4a397tq25; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImNmNWZiMDAzLWUxOWItNDVkYS04YjcwLTI2ZDgxNTAwNTc2NSIsImMiOjE3MDM3NjI0NzEzMTMsInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=3de3b99052a47d556c8ebef1e7511c9b; SERVERID=s6; SimpleSAMLAuthToken=_3815688ec46904625c9c496b9564b28719b7971c8e; _ga_Q09H2GL8G8=GS1.1.1703762470.32.1.1703763266.0.0.0' \
+-H 'Origin: https://e.csdd.lv' \
+-H 'Referer: https://e.csdd.lv/examp/' \
+-H 'Sec-Fetch-Dest: document' \
+-H 'Sec-Fetch-Mode: navigate' \
+-H 'Sec-Fetch-Site: same-origin' \
+-H 'Sec-Fetch-User: ?1' \
+-H 'Upgrade-Insecure-Requests: 1' \
+-H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 Edg/120.0.0.0' \
+-H 'sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"' \
+-H 'sec-ch-ua-mobile: ?1' \
+-H 'sec-ch-ua-platform: "Android"' \
+--data-raw 'datums=-1&did=3&datums_txt=' \
+--compressed`
 
 type Config struct {
 	Telegram struct {
@@ -122,44 +140,67 @@ func sendOther(text string, bot string, chat_id []string) {
 }
 
 func scrape() string {
-	client := &http.Client{}
-	var data = strings.NewReader(`datums=-1&did=3&datums_txt=`)
-	req, err := http.NewRequest("POST", "https://e.csdd.lv/examp/", data)
+	// client := &http.Client{}
+	// var data = strings.NewReader(`datums=-1&did=3&datums_txt=`)
+	// req, err := http.NewRequest("POST", "https://e.csdd.lv/examp/", data)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	return ""
+	// }
+
+	// req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
+	// req.Header.Set("Accept-Language", "en-US,en;q=0.9,lv;q=0.8,ru;q=0.7")
+	// req.Header.Set("Cache-Control", "max-age=0")
+	// req.Header.Set("Connection", "keep-alive")
+	// req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	// req.Header.Set("Cookie", "_ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=2adi4h37ocbe4i9sm4a397tq25; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImNmNWZiMDAzLWUxOWItNDVkYS04YjcwLTI2ZDgxNTAwNTc2NSIsImMiOjE3MDM3NjI0NzEzMTMsInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=3de3b99052a47d556c8ebef1e7511c9b; SERVERID=s6; SimpleSAMLAuthToken=_3815688ec46904625c9c496b9564b28719b7971c8e; _ga_Q09H2GL8G8=GS1.1.1703762470.32.1.1703763266.0.0.0")
+	// req.Header.Set("Origin", "https://e.csdd.lv")
+	// req.Header.Set("Referer", "https://e.csdd.lv/examp/")
+	// req.Header.Set("Sec-Fetch-Dest", "document")
+	// req.Header.Set("Sec-Fetch-Mode", "navigate")
+	// req.Header.Set("Sec-Fetch-Site", "same-origin")
+	// req.Header.Set("Sec-Fetch-User", "?1")
+	// req.Header.Set("Upgrade-Insecure-Requests", "1")
+	// req.Header.Set("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 Edg/120.0.0.0")
+	// req.Header.Set("sec-ch-ua", `"Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"`)
+	// req.Header.Set("sec-ch-ua-mobile", "?1")
+	// req.Header.Set("sec-ch-ua-platform", `"Android"`)
+
+	// resp, err := client.Do(req)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	return ""
+	// }
+	// defer resp.Body.Close()
+	// bodyText, err := io.ReadAll(resp.Body)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	return ""
+	// }
+	// return string(bodyText)
+
+	// delete all new lines in curl variable
+	curl = strings.ReplaceAll(curl, "\n", "")
+	// delete all ^ in curl variable
+	curl = strings.ReplaceAll(curl, "^", "")
+	curl = strings.ReplaceAll(curl, "\\", "")
+	curl = strings.ReplaceAll(curl, "'", "\"")
+	curl = strings.ReplaceAll(curl, "  ", " ")
+
+	// delete curl
+	curl = strings.ReplaceAll(curl, "curl ", "")
+
+	fmt.Println(curl)
+
+	cmd := exec.Command("curl", "-O", curl)
+	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Println(err)
-		return ""
+		fmt.Println("error occured")
+		fmt.Println(string(out))
+		log.Fatal(err)
 	}
 
-	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
-	req.Header.Set("Accept-Language", "en-US,en;q=0.9,lv;q=0.8,ru;q=0.7")
-	req.Header.Set("Cache-Control", "max-age=0")
-	req.Header.Set("Connection", "keep-alive")
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("Cookie", "_ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=2adi4h37ocbe4i9sm4a397tq25; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImNmNWZiMDAzLWUxOWItNDVkYS04YjcwLTI2ZDgxNTAwNTc2NSIsImMiOjE3MDM3NjI0NzEzMTMsInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=3de3b99052a47d556c8ebef1e7511c9b; SERVERID=s6; SimpleSAMLAuthToken=_3815688ec46904625c9c496b9564b28719b7971c8e; _ga_Q09H2GL8G8=GS1.1.1703762470.32.1.1703763266.0.0.0")
-	req.Header.Set("Origin", "https://e.csdd.lv")
-	req.Header.Set("Referer", "https://e.csdd.lv/examp/")
-	req.Header.Set("Sec-Fetch-Dest", "document")
-	req.Header.Set("Sec-Fetch-Mode", "navigate")
-	req.Header.Set("Sec-Fetch-Site", "same-origin")
-	req.Header.Set("Sec-Fetch-User", "?1")
-	req.Header.Set("Upgrade-Insecure-Requests", "1")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 Edg/120.0.0.0")
-	req.Header.Set("sec-ch-ua", `"Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"`)
-	req.Header.Set("sec-ch-ua-mobile", "?1")
-	req.Header.Set("sec-ch-ua-platform", `"Android"`)
-
-	resp, err := client.Do(req)
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
-	defer resp.Body.Close()
-	bodyText, err := io.ReadAll(resp.Body)
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
-	return string(bodyText)
+	return string(out)
 }
 
 func telegramBotUpdater(api string, adminPassword string) {
@@ -223,17 +264,8 @@ func telegramBotUpdater(api string, adminPassword string) {
 			}
 
 		case "curl":
-			findIn := update.Message.Text
-			n := strings.Index(findIn, "Cookie: ")
-
-			for i := n; ; i++ {
-				if string(findIn[i]) == "'" {
-					break
-				}
-				cookie += string(findIn[i])
-			}
-			cookie = strings.ReplaceAll(cookie, "Cookie: ", "")
-			msg.Text = cookie
+			curl = update.Message.Text
+			msg.Text = "Curl updated"
 
 		default:
 			msg.Text = "I don't know that command"
@@ -260,8 +292,20 @@ func main() {
 
 	fmt.Printf("CSDD parse data app. v1.1\n")
 
+	out := scrape()
+	fmt.Println("captured data")
+	// save to file
+	f, err := os.Open("niggger.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+	f.WriteString(out)
+
+	os.Exit(0)
+
 	// Parse configs
-	f, err := os.Open("config/config.yml")
+	f, err = os.Open("config/config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}
