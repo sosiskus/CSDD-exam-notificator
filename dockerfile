@@ -9,9 +9,8 @@ COPY ./go.sum ./
 RUN go mod download
 COPY *.go ./
 
-RUN go build ./csdd.go
+RUN go build -o csdd ./csdd.go
 
-CMD ["./csdd"]
 
 ## Deploy
 FROM gcr.io/distroless/base-debian11

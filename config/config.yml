@@ -2,13 +2,10 @@ telegram:
   bot_id: "6621115120:AAGbttFrh_3ZjTl7YkUFpHaFZVj0kZnIXMc"
   chat_id: 
     - "773077583"
-    - "1892705786"
-    - "713533237"
-    - "796698341"
 
 scraper:
   wait_time_min: 5
-  date: "02.01.2024" # Date before which search for exam
+  date: "21.07.2025" # Date before which search for exam
 
 admin:
   password: "test"

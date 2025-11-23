@@ -1,43 +1,41 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
-	"fmt"
-	"log"
-	"net/http"
-	"os"
-	"os/exec"
-	"regexp"
-	"runtime"
-	"strconv"
-	"strings"
-	"time"
+		"bytes"
+		"encoding/json"
+		"fmt"
+		"log"
+		"net/http"
+		"os"
+		"os/exec"
+		"regexp"
+		"strconv"
+		"strings"
+		"time"
 
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"gopkg.in/yaml.v2"
+		tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+		"gopkg.in/yaml.v2"
 )
 
-var curl string = `curl 'https://e.csdd.lv/examp/' \
--H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
--H 'Accept-Language: en-US,en;q=0.9,lv;q=0.8,ru;q=0.7' \
--H 'Cache-Control: max-age=0' \
--H 'Connection: keep-alive' \
--H 'Content-Type: application/x-www-form-urlencoded' \
--H 'Cookie: _ga=GA1.1.432155588.1702485824; _ga_KSGMLEJL82=GS1.1.1702494283.3.0.1702494283.0.0.0; eSign=3a2f1edbfd3fc2513016674cb77c89a4; _hjSessionUser_3007240=eyJpZCI6IjNjODE2YTMzLTU5ZDktNWU5YS1iY2QyLTQ5ODU0YzE5OTYxMyIsImNyZWF0ZWQiOjE3MDI3NjM5OTEzMjYsImV4aXN0aW5nIjp0cnVlfQ==; _hjDonePolls=852170; _hjMinimizedPolls=852170; userSawThatSiteUsesCookies=1; PHPSESSID=2adi4h37ocbe4i9sm4a397tq25; _hjIncludedInSessionSample_3007240=0; _hjSession_3007240=eyJpZCI6ImNmNWZiMDAzLWUxOWItNDVkYS04YjcwLTI2ZDgxNTAwNTc2NSIsImMiOjE3MDM3NjI0NzEzMTMsInMiOjAsInIiOjAsInNiIjowfQ==; _hjAbsoluteSessionInProgress=0; SimpleSAML=3de3b99052a47d556c8ebef1e7511c9b; SERVERID=s6; SimpleSAMLAuthToken=_3815688ec46904625c9c496b9564b28719b7971c8e; _ga_Q09H2GL8G8=GS1.1.1703762470.32.1.1703763266.0.0.0' \
--H 'Origin: https://e.csdd.lv' \
--H 'Referer: https://e.csdd.lv/examp/' \
--H 'Sec-Fetch-Dest: document' \
--H 'Sec-Fetch-Mode: navigate' \
--H 'Sec-Fetch-Site: same-origin' \
--H 'Sec-Fetch-User: ?1' \
--H 'Upgrade-Insecure-Requests: 1' \
--H 'User-Agent: Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36 Edg/120.0.0.0' \
--H 'sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"' \
--H 'sec-ch-ua-mobile: ?1' \
--H 'sec-ch-ua-platform: "Android"' \
---data-raw 'datums=-1&did=3&datums_txt=' \
---compressed`
+var curl string = `'https://e.csdd.lv/examp/' \
+	-H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7' \
+	-H 'Accept-Language: en-US,en;q=0.9,lv;q=0.8,ru;q=0.7' \
+	-H 'Cache-Control: max-age=0' \
+	-H 'Connection: keep-alive' \
+	-H 'Content-Type: application/x-www-form-urlencoded' \
+	-b 'PHPSESSID=cv700lms24m9sfevhsj9q6i9ka; eSign=8027a52c9d1126fe82a75fcbd22ce50c; SERVERID=s6; SimpleSAML=3dbece22c2c81f2f5d90bfd81022df83; SimpleSAMLAuthToken=_d44f5fc5664cfb56c050d27bfcf094b44294294e9c' \
+	-H 'Origin: https://e.csdd.lv' \
+	-H 'Referer: https://e.csdd.lv/examp/' \
+	-H 'Sec-Fetch-Dest: document' \
+	-H 'Sec-Fetch-Mode: navigate' \
+	-H 'Sec-Fetch-Site: same-origin' \
+	-H 'Sec-Fetch-User: ?1' \
+	-H 'Upgrade-Insecure-Requests: 1' \
+	-H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0' \
+	-H 'sec-ch-ua: "Not)A;Brand";v="8", "Chromium";v="138", "Microsoft Edge";v="138"' \
+	-H 'sec-ch-ua-mobile: ?0' \
+	-H 'sec-ch-ua-platform: "Linux"' \
+	--data-raw 'veids=5&did=2&kods=B&veids_txt=B&savs_tl_txt=&capcha=EjXmLaZ'`
 
 var bot *tgbotapi.BotAPI
 var globalStatus [][]string
@@ -57,46 +55,34 @@ type Config struct {
 	} `yaml:"admin"`
 }
 
-func parseCurl(curll string) []string {
-	var res []string
+func parseCurl(command string) []string {
+	// 1. Normalize the command string
+	// Replace newlines and backslashes used for line continuation
+	command = strings.ReplaceAll(command, "\\\n", " ")
+	command = strings.ReplaceAll(command, "\n", " ")
 
-	// delete all new lines in curl variable
-	// curll = strings.ReplaceAll(curll, "\n", "")
-	// delete all ^ in curl variable
-	curll = strings.ReplaceAll(curll, "^", "")
-	curll = strings.ReplaceAll(curll, "\\", "")
-	// curll = strings.ReplaceAll(curll, "'", "\"")
-	// curll = strings.ReplaceAll(curll, "  ", " ")
+	// 2. Split the command into arguments
+	var args []string
+	// This regex splits by spaces, but keeps quoted sections together.
+	// It handles single and double quotes.
+	r := regexp.MustCompile(`[^\s"']+|"([^"]*)"|'([^']*)'`)
+	matches := r.FindAllString(command, -1)
 
-	// fmt.Println(curll)
-
-	// res = append(res, "curl")
-
-	// extract url
-	var re = regexp.MustCompile(`(?mU)curl\s*'(.+)'`)
-	for _, match := range re.FindAllStringSubmatch(curll, -1) {
-		res = append(res, match[1])
+	for _, match := range matches {
+		// 3. Remove the quotes from the matched arguments
+		if len(match) > 1 && (match[0] == '"' && match[len(match)-1] == '"' || match[0] == '\'' && match[len(match)-1] == '\'') {
+			args = append(args, match[1:len(match)-1])
+		} else {
+			args = append(args, match)
+		}
 	}
 
-	re = regexp.MustCompile(`(?mU)-H\s*'(.+)'`)
-
-	for _, match := range re.FindAllStringSubmatch(curll, -1) {
-		res = append(res, "-H")
-		res = append(res, match[1])
-	}
-	res = append(res, "--data-raw")
-	// extract data-raw
-	re = regexp.MustCompile(`(?mU)--data-raw\s*'(.+)'`)
-	for _, match := range re.FindAllStringSubmatch(curll, -1) {
-		res = append(res, match[1])
+	// The first element is "curl", which should be omitted for exec.Command arguments
+	if len(args) > 0 && args[0] == "curl" {
+		return args[1:]
 	}
 
-	// if os == windows then remove --compressed
-	if runtime.GOOS == "linux" {
-		res = append(res, "--compressed")
-	}
-
-	return res
+	return args
 }
 
 func remove(slice []string, s int) []string {
@@ -126,9 +112,7 @@ func send(text string, bot string, chat_id []string) {
 				defer res.Body.Close()
 			}
 
-			chat_id = remove(chat_id, i)
-
-			break
+			go sendOther(text, bot, []string{chat_id[i]})
 		} else if priorityChatID == "" {
 			values := map[string]string{"text": text, "chat_id": chat_id[i]}
 			json_paramaters, _ := json.Marshal(values)
@@ -192,7 +176,7 @@ func scrape() string {
 	cmd := exec.Command("curl", com...)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Println("error occured")
+		log.Fatal("error occurred: ", err)
 		fmt.Println(string(out))
 		log.Fatal(err)
 	}
@@ -200,7 +184,7 @@ func scrape() string {
 	return string(out)
 }
 
-func telegramBotUpdater(api string, adminPassword string) {
+func telegramBotUpdater(api string, adminPassword string, cfg Config) {
 	bot, err := tgbotapi.NewBotAPI(api)
 	if err != nil {
 		log.Panic(err)
@@ -256,6 +240,7 @@ func telegramBotUpdater(api string, adminPassword string) {
 			res := strings.Split(update.Message.Text, " ")
 			if len(res) > 1 {
 				if res[1] == adminPassword {
+					priorityChatID = ""
 					msg.Text = "priority removed"
 				}
 			}
@@ -263,6 +248,10 @@ func telegramBotUpdater(api string, adminPassword string) {
 		case "curl":
 			curl = update.Message.Text
 			msg.Text = "Curl updated"
+
+		case "test":
+			go send("TEST CHAT ID", cfg.Telegram.BotID, cfg.Telegram.ChatID)
+			msg.Text = "Test message sent to all chat IDs"
 
 		default:
 			msg.Text = "I don't know that command"
@@ -292,7 +281,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	go telegramBotUpdater(cfg.Telegram.BotID, cfg.Admin.Password)
+	go telegramBotUpdater(cfg.Telegram.BotID, cfg.Admin.Password, cfg)
 
 	untilDay, err := strconv.Atoi(cfg.Scraper.Date[:2])
 	untilMonth, err1 := strconv.Atoi(cfg.Scraper.Date[3:5])
@@ -304,7 +293,7 @@ func main() {
 	defer send("Program die", cfg.Telegram.BotID, cfg.Telegram.ChatID)
 
 	for {
-		fmt.Println(time.Now())
+		fmt.Println("Scraping...")
 
 		plainHtml := scrape()
 		// n, _ := ioutil.ReadFile("niggger.html")
